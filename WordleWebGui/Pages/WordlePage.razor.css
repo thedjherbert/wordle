@@ -1,0 +1,264 @@
+/*Grid*/
+.subcontainer{
+    display: flex;
+    flex-direction: row;
+    gap: 2px;
+    justify-content: flex-start;
+    align-content: center;
+    align-items: center;
+
+    width: 100%;
+    max-width: 370px;
+    height: 100%;
+    max-height: 370px;
+
+    margin: 0 auto;
+}
+
+
+/*ingame*/
+.defaultcell{
+    background-color: white;
+}
+
+.scorecell{
+    background-color: #79B851;
+    color: white;
+}
+
+.rightguesscell{
+    background-color: #F3C237;
+    color: white;
+}
+
+.wrongguesscell{
+    background-color: #A4AEC4;
+    color: white;
+}
+
+.subcontainer .col input {
+    width: 70px !important;  
+    height: 70px;
+    flex: none;    /*Verhindert, dass Flexbox die Größe ignoriert */
+    box-sizing: border-box;
+    text-align: center;
+    margin-bottom: 2px;
+}
+
+
+/* STATISTICS  + DIAGGRAM */
+
+/*Statistik rechts*/
+.stats-card {
+    background-color: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 12px;
+    padding: 24px;
+    width: 320px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+
+   
+    position: absolute; /*lute macht dass das drum zwar auf seinem rand bleibt aber beim scrollen mit geht, bei fixed geht es nicht it dem scrollen mit*/
+    right: 30px;
+    top: 30%;
+    transform: translateY(-30%);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/*Titel Statistik*/
+.stats-title {
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 25px;
+    color: #1a1a1a;
+}
+
+/* ordnet die balken nebeneinander */
+.chart-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 12px;
+    height: 200px;
+    align-items: flex-end; /*Balken von unten nach oben wachsen*/
+}
+
+/* Wrapper für ein einzelnes Element (Prozent + Balken + Nummer)*/
+.bar-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    justify-content: flex-end;
+}
+
+/*Prozentanzeige über Balken*/
+.bar-percentage {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #495057;
+    margin-bottom: 6px;
+    white-space: nowrap;
+}
+
+/* graue Hintergrund-Behälter für den Balken*/
+.bar-container {
+    width: 100%;
+    height: 140px;
+    background-color: #e9ecef;
+    border-radius: 4px;
+    position: relative;
+    display: flex;
+    align-items: flex-end; /* Wichtig, damit die Höhe von unten berechnet wird */
+    overflow: hidden;
+}
+
+/*farbige Balken*/
+.bar {
+    width: 100%;
+    background-color: #DE4C8A;
+    border-radius: 4px;
+    transition: height 0.5s ease-out; /*Animation beim Laden*/
+}
+
+/* Ändert die Farbe leicht, wenn man mit der Maus drüber fährt */
+.bar:hover {
+    background-color: #d83278;
+}
+
+/*zeilen-Nummer unter Balken*/
+.bar-label {
+    margin-top: 8px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    color: #6c757d;
+}
+
+
+
+/*HINT POPUP*/
+
+.hint-popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.4);/*Dunkler, halbtransparenter Hintergrund*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999; /*zeigt popup über allem anderen an*/
+    animation: fadeIn 0.2s ease-out;
+}
+
+/*Pop-up Fenster*/
+.hint-popup-content {
+    background-color: white;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 340px;
+    padding: 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    animation: scaleUp 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/*Header-Bereich im Popup*/
+.hint-popup-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: #1a1a1a;
+    border-bottom: 1px solid #e9ecef;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+/*X-Schließen-Button oben rechts*/
+.close-popup-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #6c757d;
+    line-height: 1;
+}
+.close-popup-btn:hover {
+    color: #cf3378;
+}
+
+/*Text im Popup*/
+.hint-popup-body p {
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #495057;
+    margin: 0 0 20px 0;
+    text-align: center;
+}
+
+/*"Alles klar!" Button im Popup*/
+.popup-confirm-btn {
+    background-color: #DE4C8A;
+    color: #ffffff;
+    border: none;
+    padding: 10px;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.popup-confirm-btn:hover {
+    background-color: #cf3378;
+    color: #ffffff;
+}
+
+
+   /*ANIMATIONEN*/
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes scaleUp {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+
+
+/*buttons*/
+
+.button-sidebar {
+    position: absolute;           
+    left: 400px;                  
+    top: 50%;                 
+    transform: translateY(-50%); 
+
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 10px;
+    z-index: 9999;
+}
+
+button{
+    color: white;
+    background-color: #DE4C8A;
+    border: solid #d83278;
+    border-radius: 5px;
+}
+
+#loesung{
+    color: white;
+}
+
+#loesung:hover{
+    color: #d83278;
+}

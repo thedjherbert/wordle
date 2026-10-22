@@ -1,0 +1,522 @@
+@page "/wordlepage"
+@using Wordle
+@inject HttpClient Http
+@inject WordleClass Wordle
+@inject Features Features
+
+<main>
+        <!--Typefelder-->
+        <div class="container">
+            <div class="subcontainer @(Wordle.CurrentRow == 0 ? "active" : "")">
+                
+                <div class="col">
+                    <input type="text" class="form-control @Wordle.BgColour[0,0]" maxlength="1"
+                           style=""
+                           @bind="Wordle.Letters[0,0]"
+                           @oninput="(e) => HandleInput(e, 0)"
+                           @onkeydown="(e) => HandleKeyDown(e, 0)"
+                           @ref="Wordle.InputRef[0, 0]"
+                           disabled="@(Wordle.CurrentRow != 0)">
+                </div>
+                <div class="col">
+                    <input type="text" class="form-control @Wordle.BgColour[0,1]" maxlength="1"
+                           style=""
+                           @bind="Wordle.Letters[0,1]"
+                           @oninput="(e) => HandleInput(e, 1)"
+                           @onkeydown="(e) => HandleKeyDown(e, 1)"
+                           @ref="Wordle.InputRef[0, 1]"
+                           disabled="@(Wordle.CurrentRow != 0)">
+                </div>
+
+                <div class="col">
+                    <input type="text" class="form-control @Wordle.BgColour[0,2]" maxlength="1"
+                           @bind="Wordle.Letters[0,2]"
+                           @oninput="(e) => HandleInput(e, 2)"
+                           @onkeydown="(e) => HandleKeyDown(e, 2)"
+                           @ref="Wordle.InputRef[0, 2]"
+                           disabled="@(Wordle.CurrentRow != 0)">
+                </div>
+                <div class="col">
+                    <input type="text" class="form-control @Wordle.BgColour[0,3]" maxlength="1"
+                           @bind="Wordle.Letters[0,3]"
+                           @oninput="(e) => HandleInput(e, 3)"
+                           @onkeydown="(e) => HandleKeyDown(e, 3)"
+                           @ref="Wordle.InputRef[0, 3]"
+                           disabled="@(Wordle.CurrentRow != 0)">
+                </div>
+                <div class="col">
+                    <input type="text" class="form-control @Wordle.BgColour[0,4]" maxlength="1"
+                           @bind="Wordle.Letters[0,4]"
+                           @oninput="(e) => HandleInput(e, 4)"
+                           @onkeydown="(e) => HandleKeyDown(e, 4)"
+                           @ref="Wordle.InputRef[0, 4]"
+                           disabled="@(Wordle.CurrentRow != 0)">
+                </div>
+            </div>
+            
+
+
+            <div class="subcontainer @(Wordle.CurrentRow == 1 ? "active" : "")">
+                <div class="col">
+                    <input type="text" class="form-control @Wordle.BgColour[1,0]" maxlength="1" 
+                           disabled="@(Wordle.CurrentRow != 1)"
+                           @bind="Wordle.Letters[1,0]"
+                           @ref="Wordle.InputRef[1,0]"
+                           @oninput="(e) => HandleInput(e, 0)"
+                           @onkeydown="(e) => HandleKeyDown(e, 0)">
+                </div>
+                <div class="col">
+                    <input type="text" class="form-control @Wordle.BgColour[1,1]" maxlength="1" 
+                           disabled="@(Wordle.CurrentRow != 1)"
+                           @bind="Wordle.Letters[1,1]"
+                           @ref="Wordle.InputRef[1,1]"
+                           @oninput="(e) => HandleInput(e, 1)"
+                           @onkeydown="(e) => HandleKeyDown(e, 1)"
+                    >
+                </div>
+
+                <div class="col">
+                    <input type="text" class="form-control @Wordle.BgColour[1,2]" maxlength="1" 
+                           disabled="@(Wordle.CurrentRow != 1)"
+                           @bind="Wordle.Letters[1,2]"
+                           @ref="Wordle.InputRef[1,2]"
+                           @oninput="(e) => HandleInput(e, 2)"
+                           @onkeydown="(e) => HandleKeyDown(e, 2)">
+                </div>
+                <div class="col">
+                    <input type="text" class="form-control @Wordle.BgColour[1,3]" maxlength="1" 
+                           disabled="@(Wordle.CurrentRow != 1)"
+                           @bind="Wordle.Letters[1,3]"
+                           @ref="Wordle.InputRef[1,3]"
+                           @oninput="(e) => HandleInput(e, 3)"
+                           @onkeydown="(e) => HandleKeyDown(e, 3)">
+                </div>
+                <div class="col">
+                    <input type="text" class="form-control @Wordle.BgColour[1,4]" maxlength="1" 
+                           disabled="@(Wordle.CurrentRow != 1)"
+                           @bind="Wordle.Letters[1,4]"
+                           @ref="Wordle.InputRef[1,4]"
+                           @oninput="(e) => HandleInput(e, 4)"
+                           @onkeydown="(e) => HandleKeyDown(e, 4)"
+                    >
+                </div>
+            </div>
+
+            <div class="subcontainer @(Wordle.CurrentRow == 2 ? "active" : "")">
+                <div class="col">
+                    <input type="text" class="form-control @Wordle.BgColour[2,0]" maxlength="1" 
+                           disabled="@(Wordle.CurrentRow != 2)"
+                           @bind="Wordle.Letters[2,0]"
+                           @ref="Wordle.InputRef[2,0]"
+                           @oninput="(e) => HandleInput(e, 0)"
+                           @onkeydown="(e) => HandleKeyDown(e, 0)">
+                </div>
+                <div class="col">
+                    <input type="text" class="form-control @Wordle.BgColour[2,1]" maxlength="1" 
+                           disabled="@(Wordle.CurrentRow != 2)"
+                           @bind="Wordle.Letters[2,1]"
+                           @ref="Wordle.InputRef[2,1]"
+                           @oninput="(e) => HandleInput(e, 1)"
+                           @onkeydown="(e) => HandleKeyDown(e, 1)">
+                </div>
+                <div class="col">
+                    <input type="text" class="form-control @Wordle.BgColour[2,2]" maxlength="1" 
+                           disabled="@(Wordle.CurrentRow != 2)"
+                           @bind="Wordle.Letters[2,2]"
+                           @ref="Wordle.InputRef[2,2]"
+                           @oninput="(e) => HandleInput(e, 2)"
+                           @onkeydown="(e) => HandleKeyDown(e, 2)"
+                    >
+                </div>
+                <div class="col">
+                    <input type="text" class="form-control @Wordle.BgColour[2,3]" maxlength="1" 
+                           disabled="@(Wordle.CurrentRow != 2)"
+                           @bind="Wordle.Letters[2,3]"
+                           @ref="Wordle.InputRef[2,3]"
+                           @oninput="(e) => HandleInput(e, 3)"
+                           @onkeydown="(e) => HandleKeyDown(e, 3)"
+                    >
+                </div>
+                <div class="col">
+                    <input type="text" class="form-control @Wordle.BgColour[2,4]" maxlength="1"
+                           disabled="@(Wordle.CurrentRow != 2)"
+                           @bind="Wordle.Letters[2,4]"
+                           @ref="Wordle.InputRef[2,4]"
+                           @oninput="(e) => HandleInput(e, 4)"
+                           @onkeydown="(e) => HandleKeyDown(e, 4)">
+                </div>
+            </div>
+
+
+            <div class="subcontainer @(Wordle.CurrentRow == 3 ? "active" : "")">
+                <div class="col">
+                    <input type="text" class="form-control @Wordle.BgColour[3,0]" maxlength="1" 
+                           disabled="@(Wordle.CurrentRow != 3)"
+                           @bind="Wordle.Letters[3,0]"
+                           @ref="Wordle.InputRef[3,0]"
+                           @oninput="(e) => HandleInput(e, 0)"
+                           @onkeydown="(e) => HandleKeyDown(e, 0)">
+                </div>
+                <div class="col">
+                    <input type="text" class="form-control @Wordle.BgColour[3,1]" maxlength="1" 
+                           disabled="@(Wordle.CurrentRow != 3)"
+                           @bind="Wordle.Letters[3,1]"
+                           @ref="Wordle.InputRef[3,1]"
+                           @oninput="(e) => HandleInput(e, 1)"
+                           @onkeydown="(e) => HandleKeyDown(e, 1)">
+                </div>
+
+                <div class="col">
+                    <input type="text" class="form-control @Wordle.BgColour[3,2]" maxlength="1" 
+                           disabled="@(Wordle.CurrentRow != 3)"
+                           @bind="Wordle.Letters[3,2]"
+                           @ref="Wordle.InputRef[3,2]"
+                           @oninput="(e) => HandleInput(e, 2)"
+                           @onkeydown="(e) => HandleKeyDown(e, 2)">
+                </div>
+                <div class="col">
+                    <input type="text" class="form-control @Wordle.BgColour[3,3]" maxlength="1" 
+                           disabled="@(Wordle.CurrentRow != 3)"
+                           @bind="Wordle.Letters[3,3]"
+                           @ref="Wordle.InputRef[3,3]"
+                           @oninput="(e) => HandleInput(e, 3)"
+                           @onkeydown="(e) => HandleKeyDown(e, 3)">
+                </div>
+                <div class="col">
+                    <input type="text" class="form-control @Wordle.BgColour[3,4]" maxlength="1" 
+                           disabled="@(Wordle.CurrentRow != 3)"
+                           @bind="Wordle.Letters[3,4]"
+                           @ref="Wordle.InputRef[3,4]"
+                           @oninput="(e) => HandleInput(e, 4)"
+                           @onkeydown="(e) => HandleKeyDown(e, 4)">
+                </div>
+            </div>
+            
+            <div class="subcontainer @(Wordle.CurrentRow == 4 ? "active" : "")">
+                <div class="col">
+                    <input type="text" class="form-control @Wordle.BgColour[4,0]" maxlength="1" 
+                           disabled="@(Wordle.CurrentRow != 4)"
+                           @bind="Wordle.Letters[4,0]"
+                           @ref="Wordle.InputRef[4,0]"
+                           @oninput="(e) => HandleInput(e, 0)"
+                           @onkeydown="(e) => HandleKeyDown(e, 0)">
+                </div>
+                <div class="col">
+                    <input type="text" class="form-control @Wordle.BgColour[4,1]" maxlength="1" 
+                           disabled="@(Wordle.CurrentRow != 4)"
+                           @bind="Wordle.Letters[4,1]"
+                           @ref="Wordle.InputRef[4,1]"
+                           @oninput="(e) => HandleInput(e, 1)"
+                           @onkeydown="(e) => HandleKeyDown(e, 1)">
+                </div>
+
+                <div class="col">
+                    <input type="text" class="form-control @Wordle.BgColour[4,2]" maxlength="1" 
+                           disabled="@(Wordle.CurrentRow != 4)"
+                           @bind="Wordle.Letters[4,2]"
+                           @ref="Wordle.InputRef[4,2]"
+                           @oninput="(e) => HandleInput(e, 2)"
+                           @onkeydown="(e) => HandleKeyDown(e, 2)">
+                </div>
+                <div class="col">
+                    <input type="text" class="form-control @Wordle.BgColour[4,3]" maxlength="1" 
+                           disabled="@(Wordle.CurrentRow != 4)"
+                           @bind="Wordle.Letters[4,3]"
+                           @ref="Wordle.InputRef[4,3]"
+                           @oninput="(e) => HandleInput(e, 3)"
+                           @onkeydown="(e) => HandleKeyDown(e, 3)">
+                </div>
+                <div class="col">
+                    <input type="text" class="form-control @Wordle.BgColour[4,4]" maxlength="1" 
+                           disabled="@(Wordle.CurrentRow != 4)"
+                           @bind="Wordle.Letters[4,4]"
+                           @ref="Wordle.InputRef[4,4]"
+                           @oninput="(e) => HandleInput(e,4)"
+                           @onkeydown="(e) => HandleKeyDown(e, 4)">
+                </div>
+            </div>
+            
+            <div class="subcontainer @(Wordle.CurrentRow == 5 ? "active" : "")">
+                <div class="col">
+                    <input type="text" class="form-control @Wordle.BgColour[5,0]" maxlength="1" 
+                           disabled="@(Wordle.CurrentRow != 5)"
+                           @bind="Wordle.Letters[5,0]"
+                           @ref="Wordle.InputRef[5,0]"
+                           @oninput="(e) => HandleInput(e, 0)"
+                           @onkeydown="(e) => HandleKeyDown(e, 0)">
+                </div>
+                <div class="col">
+                    <input type="text" class="form-control @Wordle.BgColour[5,1]" maxlength="1" 
+                           disabled="@(Wordle.CurrentRow != 5)"
+                           @bind="Wordle.Letters[5,1]"
+                           @ref="Wordle.InputRef[5,1]"
+                           @oninput="(e) => HandleInput(e, 1)"
+                           @onkeydown="(e) => HandleKeyDown(e, 1)">
+                </div>
+
+                <div class="col">
+                    <input type="text" class="form-control @Wordle.BgColour[5,1]" maxlength="1" 
+                           disabled="@(Wordle.CurrentRow != 5)"
+                           @bind="Wordle.Letters[5,2]"
+                           @ref="Wordle.InputRef[5,2]"
+                           @oninput="(e) => HandleInput(e, 2)"
+                           @onkeydown="(e) => HandleKeyDown(e, 2)">
+                </div>
+                <div class="col">
+                    <input type="text" class="form-control @Wordle.BgColour[5,3]" maxlength="1" 
+                           disabled="@(Wordle.CurrentRow != 5)"
+                           @bind="Wordle.Letters[5,3]"
+                           @ref="Wordle.InputRef[5,3]"
+                           @oninput="(e) => HandleInput(e, 3)"
+                           @onkeydown="(e) => HandleKeyDown(e, 3)">
+                </div>
+                <div class="col">
+                    <input type="text" class="form-control @Wordle.BgColour[5,4]" maxlength="1" 
+                           disabled="@(Wordle.CurrentRow != 5)"
+                           @bind="Wordle.Letters[5,4]"
+                           @ref="Wordle.InputRef[5,4]"
+                           @oninput="(e) => HandleInput(e, 4)"
+                           @onkeydown="(e) => HandleKeyDown(e, 4)">
+                </div>
+            </div>
+
+        </div>
+        
+
+        <div class="button-sidebar">
+            <button type="button" class="btn" id="hint-Btn" @onclick="RevealHint">
+                Hint
+            </button>
+            <button type="button" class="btn" id="next-Btn" @onclick="ResetGame">
+                Next Game →
+            </button>
+        </div>
+        
+        @if (Features.ShowHintPopUp)
+        {
+            <div class="hint-popup-overlay" @onclick="() => Features.ShowHintPopUp = false">
+                <div class="hint-popup-content" @onclick:stopPropagation>
+                    <div class="hint-popup-header">
+                        <span>💡 Hinweis</span>
+                        <button class="close-popup-btn" @onclick="() => Features.ShowHintPopUp = false">&times;</button>
+                    </div>
+                    <div class="hint-popup-body">
+                        <p>@Features.HintMessage</p>
+                    </div>
+                    <button class="btn popup-confirm-btn" @onclick="() => Features.ShowHintPopUp = false">OK</button>
+                </div>
+            </div>
+        }
+
+</main>
+<side>
+    <div class="stats-card">
+        <h3 class="stats-title">Statistics</h3>
+    
+        <div class="chart-grid">
+            @for (int i = 0; i < Features.ScorePercentage.Length; i++){
+                var tryIndex = i + 1;
+                var currentPercentage = Features.ScorePercentage[i];
+            
+                <div class="bar-wrapper">
+                    <span class="bar-percentage">@currentPercentage.ToString("F1")%</span>
+                
+                    <div class="bar-container">
+                        <div class="bar" style="height: @currentPercentage.ToString("0")%">
+                        </div>
+                    </div>
+                
+                    <span class="bar-label">@tryIndex.</span>
+                </div>
+            }
+        </div>
+    </div>
+
+</side>
+<p id="loesung">@Wordle.Word</p>
+
+
+@code {
+    
+    protected override async Task OnInitializedAsync() {
+        try {
+            // Wir laden die Datei über HTTP statt über das Dateisystem
+            Wordle.Content = await Http.GetStringAsync("Ressource/wordList.csv");
+            // Den String in Zeilen zerlegen
+            Wordle.Lines = Wordle.Content.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries);
+            WordGenerator();
+            
+            // setzt alle Eungabe felder auf weis
+            for (var row = 0; row < Wordle.BgColour.GetLength(0); row++) {
+                for (var col = 0; col < Wordle.BgColour.GetLength(1); col++) {
+                    Wordle.BgColour[row, col] = "#ffffff";
+                }
+            }
+            
+        }
+        catch (Exception ex) {
+        }
+    }
+
+    public void WordGenerator() {
+        // zufällige Nummer generieren
+        Wordle.GenNumber = Wordle.Random.Next(0, Wordle.Lines.Length - 1);
+        // das Wort an dem Index Wordle.GenNumber speicher
+        Wordle.Word = Wordle.Lines[Wordle.GenNumber];
+    }
+    
+    public void CheckWord() {
+        var data = String.Empty;
+        for (int i = 0; i < Wordle.Letters.GetLength(1); i++) {
+            data += Wordle.Letters[Wordle.CurrentRow, i].ToLower();
+        }
+      Console.WriteLine(data.ToLower());
+
+        if (data.Length != 5) {
+            return;
+        }
+
+        string item = Wordle.Word;
+        int cellcounter = 0;
+        for (int i = 0; i < Wordle.Letters.GetLength(1); i++) {
+            var stringItem = Char.ToString(item.ElementAt(i));
+            if (data[i].ToString().Equals(stringItem)) {
+                Wordle.BgColour[Wordle.CurrentRow, i] = "scorecell";
+                cellcounter++;
+            }
+            else {
+                if (item.IndexOf(data[i]) != -1) {
+                    // gibt den index vom gesuchten buchstaben zurück, gibt -1 zurück wenn
+                    // der Buchstabe nicht vorkommt
+                    Wordle.BgColour[Wordle.CurrentRow, i] = "rightguesscell";
+                }
+                else {
+                    Wordle.BgColour[Wordle.CurrentRow, i] = "wrongguesscell";
+                }
+            }
+        }
+
+        if (cellcounter == 5) {
+            Features.ScoreRows[Wordle.CurrentRow]++;
+            Percentage();
+        }
+        else {
+            Wordle.CurrentRow++;
+        }
+    }
+
+    public async Task HandleInput(ChangeEventArgs eventArgs, int index) {
+        // mit Rufzeichen wird die Warning ignoriert
+        var input = eventArgs.Value!.ToString();
+        Wordle.Letters[Wordle.CurrentRow, index] = input!.ToUpper();
+        if (index < 4) {
+            await Wordle.InputRef[Wordle.CurrentRow, index + 1].FocusAsync();
+        }
+    }
+
+    private async Task HandleKeyDown(KeyboardEventArgs e, int index) {
+        if (e.Key == "Backspace") {
+            if (string.IsNullOrEmpty(Wordle.Letters[Wordle.CurrentRow,index]) && index > 0) {
+                Wordle.Letters[Wordle.CurrentRow, index - 1] = ""; // Buchstabe davor löschen
+                await Wordle.InputRef[Wordle.CurrentRow, index - 1].FocusAsync();
+            }
+        }
+
+        if (e.Key == "Enter" && index == 4) {
+            CheckWord();
+            await Task.Yield();
+            await Wordle.InputRef[Wordle.CurrentRow, 0].FocusAsync();
+        }
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender) {
+        if (firstRender && Wordle.CurrentRow == 4) {
+            await Wordle.InputRef[Wordle.CurrentRow, 0].FocusAsync();
+        }
+    }
+    
+    public void Percentage() {
+        // wir rechnen uns aus wie viele spiele man gespielt hat (Games played) wenn es 0 sind wird
+        // die Methode abgebrochen
+        // dann wird der double ScorePercentage an der Stelle [Index] mit den
+        // Prozent die man erziehlt hat überschrieben
+        // er gibt die gerundeten Prozente in dem Array ScorePercentage zurück
+        int GamesPlayed = Features.ScoreRows.Sum();
+        if (GamesPlayed == 0) {
+            return;
+        }
+        for (int i = 0; i < Features.ScoreRows.Length; i++) {
+            Features.ScorePercentage[i] = Math.Round(
+                (double)Features.ScoreRows[i] / GamesPlayed * 100, 1
+                );
+        }
+    }
+    
+    public void ResetGame() {
+        // Spielfeld leeren
+        for (var row = 0; row < Wordle.Letters.GetLength(0); row++) {
+            for (var col = 0; col < Wordle.Letters.GetLength(1); col++) {
+                Wordle.Letters[row, col] = string.Empty;
+            }
+        }
+
+        // Hintergrundfarben reseten
+        for (var row = 0; row < Wordle.BgColour.GetLength(0); row++) {
+            for (var col = 0; col < Wordle.BgColour.GetLength(1); col++) {
+                Wordle.BgColour[row, col] = "#ffffff";
+            }
+        }
+
+        // Reihe auf die erste Zeile zurücksetzen
+        Wordle.CurrentRow = 0;
+        WordGenerator();
+
+        //  Fokus auf Eingabefeld
+        InvokeAsync(async () => {
+            await Task.Delay(100); // Kurze Verzögerung, damit Blazor das UI rendern kann
+            if (Wordle.InputRef[0, 0].Context != null) {
+                await Wordle.InputRef[0, 0].FocusAsync();
+            }
+        });
+    }
+    
+    public void RevealHint() {
+        string targetWord = Wordle.Word.ToUpper();
+        List<int> unrevealedIndices = new List<int>();
+
+        // Wir prüfen, welche Positionen der Spieler bisher noch NICHT erraten hat.
+        for (int col = 0; col < 5; col++) {
+            bool alreadyGuessedCorrectly = false;
+        
+            // Alle bisher gespielten Reihen durchgehen
+            for (int row = 0; row <= Wordle.CurrentRow; row++) {
+                if (row < Wordle.BgColour.GetLength(0) && Wordle.BgColour[row, col] == "scorecell") {
+                    alreadyGuessedCorrectly = true;
+                    break;
+                }
+            }
+
+            if (!alreadyGuessedCorrectly) {
+                unrevealedIndices.Add(col);
+            }
+        }
+
+        // Wenn der Spieler bereits alle Buchstaben richtig hat, gibt es keinen Tipp mehr
+        if (unrevealedIndices.Count == 0) {
+            Features.HintMessage = "Du hast alles gefunden";
+            Features.ShowHintPopUp = true;
+            return;
+        }
+
+        // Zufällig einen Buchstaben auswählen der noch nicht eraten wurde
+        Random random = new Random();
+        int randomIndex = unrevealedIndices[random.Next(unrevealedIndices.Count)];
+        char hintLetter = targetWord[randomIndex];
+        int displayPosition = randomIndex + 1; 
+
+        // Nachricht zusammenbauen
+        Features.HintMessage = $"An Stelle {displayPosition} steht der Buchstabe '{hintLetter}'!";
+        Features.ShowHintPopUp = true;
+    }
+    
+}
